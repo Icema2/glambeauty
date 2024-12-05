@@ -1,3 +1,4 @@
+'use client';
 import { FormInput } from '@/components/forms/form-input';
 import { Button } from '@/components/ui/button';
 import {
@@ -6,19 +7,31 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog';
 import { updateProfileSchema, UpdateProfileSchema } from '@/lib/form-schemas';
 import { updateProfileKey, useUpdateProfile } from '@/mutations/use-update-profile';
 import { useProfile } from '@/queries/use-profile';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { createStore } from '@jodd/snap';
 import { useIsMutating } from '@tanstack/react-query';
 import { MapPin, Phone, User } from 'lucide-react';
-import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-export default function UpdateProfileDialog({ children }: { children: React.ReactNode }) {
+const useUpdateProfileDialog = createStore<{ isOpen: boolean }>(() => ({ isOpen: false }));
+
+const onOpenChange = (isOpen: boolean) => useUpdateProfileDialog.setState({ isOpen });
+export const openUpdateProfileDialog = () => onOpenChange(true);
+export const closeUpdateProfileDialog = () => onOpenChange(false);
+
+export default function UpdateProfileDialog() {
+  const { data: profile } = useProfile();
+  if (!profile) return;
+
+  return <BaseDialog />;
+}
+
+function BaseDialog() {
   const { data: profile } = useProfile();
   const {
     handleSubmit,
@@ -33,22 +46,28 @@ export default function UpdateProfileDialog({ children }: { children: React.Reac
       phone: profile?.phone || undefined
     }
   });
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { mutate } = useUpdateProfile();
   const isUpdatingProfile = !!useIsMutating({ mutationKey: updateProfileKey });
 
   const onSubmit = (data: UpdateProfileSchema) => {
     mutate(data, {
       onSuccess() {
-        closeButtonRef.current?.click();
+        closeUpdateProfileDialog();
         reset();
       }
     });
   };
 
+  const { isOpen } = useUpdateProfileDialog();
+
   return (
-    <Dialog onOpenChange={() => reset()}>
-      <DialogTrigger asChild>{children}</DialogTrigger>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(isOpen) => {
+        onOpenChange(isOpen);
+        reset();
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-center">Update Profile</DialogTitle>
@@ -83,7 +102,7 @@ export default function UpdateProfileDialog({ children }: { children: React.Reac
         </form>
 
         <DialogFooter>
-          <DialogClose asChild ref={closeButtonRef}>
+          <DialogClose asChild>
             <Button variant="outline">Close</Button>
           </DialogClose>
 

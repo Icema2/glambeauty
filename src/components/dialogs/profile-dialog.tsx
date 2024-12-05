@@ -12,7 +12,7 @@ import Avatar from '@/components/utils/avatar';
 import { useProfile } from '@/queries/use-profile';
 import { Mail, MapPin, Phone, User } from 'lucide-react';
 import React from 'react';
-import UpdateProfileDialog from './update-profile-dialog';
+import { openUpdateProfileDialog } from './update-profile-dialog';
 
 export default function ProfileDialog({ children }: { children: React.ReactNode }) {
   const { data: profile } = useProfile();
@@ -50,9 +50,7 @@ export default function ProfileDialog({ children }: { children: React.ReactNode 
             <Button variant="outline">Close</Button>
           </DialogClose>
 
-          <UpdateProfileDialog>
-            <Button>Update Profile</Button>
-          </UpdateProfileDialog>
+          <Button onClick={openUpdateProfileDialog}>Update Profile</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -17,7 +17,7 @@ export default function ServiceCard({ service, view }: Props) {
       <Image
         src={service.image || dummyServiceImage}
         alt="service image"
-        className="aspect-video w-full object-contain md:w-1/2 lg:w-96"
+        className="aspect-video w-full object-contain md:w-1/2 lg:w-96 lg:min-w-96"
         width={720}
         height={1080}
         quality={100}

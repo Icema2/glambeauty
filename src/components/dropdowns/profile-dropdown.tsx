@@ -25,14 +25,14 @@ export default function ProfileDropdown({ children }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="min-w-44">
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger className="p-0 [&>svg]:hidden">
             <ProfileDialog>
-              <button className="flex w-full items-center">
+              <button className="flex w-full items-center px-2 py-1.5">
                 <User className="mr-2 size-4" />
                 <span>Profile</span>
               </button>
@@ -41,9 +41,9 @@ export default function ProfileDropdown({ children }: Props) {
         </DropdownMenuSub>
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger className="p-0 [&>svg]:hidden">
             <NotificationsDrawer>
-              <button className="flex w-full items-center">
+              <button className="flex w-full items-center px-2 py-1.5">
                 <Bell className="mr-2 size-4" />
                 <span>Notifications</span>
               </button>
@@ -52,9 +52,9 @@ export default function ProfileDropdown({ children }: Props) {
         </DropdownMenuSub>
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger className="p-0 [&>svg]:hidden">
             <AppointmentsDrawer>
-              <button className="flex w-full items-center">
+              <button className="flex w-full items-center px-2 py-1.5">
                 <BookText className="mr-2 size-4" />
                 <span>Appointments</span>
               </button>
@@ -66,7 +66,7 @@ export default function ProfileDropdown({ children }: Props) {
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="sm:hidden">
               <SelectAppointmentDialog>
-                <button className="flex w-full items-center">
+                <button className="flex w-full items-center px-2 py-1.5">
                   <NotebookPen className="mr-2 size-4" />
                   <span>Book an appointment</span>
                 </button>
@@ -87,9 +87,9 @@ export default function ProfileDropdown({ children }: Props) {
         <DropdownMenuSeparator />
 
         <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
+          <DropdownMenuSubTrigger className="p-0 [&>svg]:hidden">
             <LogoutDialog>
-              <button className="flex w-full">
+              <button className="flex w-full items-center px-2 py-1.5">
                 <LogOut className="mr-2 size-4" />
                 <span>Logout</span>
               </button>

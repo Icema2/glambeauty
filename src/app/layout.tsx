@@ -1,3 +1,4 @@
+import UpdateProfileDialog from '@/components/dialogs/update-profile-dialog';
 import QueryProvider from '@/providers/query-provider';
 import { LoadingBar } from '@jodd/next-top-loading-bar';
 import type { Metadata } from 'next';
@@ -46,6 +47,8 @@ export default function RootLayout({
           <LoadingBar waitingTime={200} color="rgb(236 72 153)" />
           <Toaster toastOptions={{ duration: 3000 }} theme="dark" richColors closeButton />
           {children}
+
+          <UpdateProfileDialog />
         </QueryProvider>
       </body>
     </html>
